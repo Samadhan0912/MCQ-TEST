@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Command, Flame, Target, Zap, RotateCcw, 
   Timer, ChevronRight, ChevronDown, Activity, CheckCircle2, AlertCircle 
@@ -24,8 +24,8 @@ interface UserData {
   sessions: Session[];
 }
 
-// --- Premium Motion System (Strictly Typed for Build Success) ---
-const anim: { container: Variants; item: Variants } = {
+// --- Premium Motion System (Fixed for Vercel TS Strict Mode) ---
+const anim = {
   container: {
     hidden: { opacity: 0 },
     show: { 
@@ -39,7 +39,7 @@ const anim: { container: Variants; item: Variants } = {
       opacity: 1, 
       y: 0, 
       filter: "blur(0px)", 
-      transition: { type: "spring", stiffness: 300, damping: 24 } 
+      transition: { duration: 0.4, ease:[0.25, 1, 0.5, 1] } 
     }
   }
 };
@@ -318,7 +318,6 @@ export function Dashboard() {
         </motion.div>
       </main>
 
-      {/* Global Style for the Button Shimmer Effect */}
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes shimmer {
           100% { transform: translateX(200%) skewX(30deg); }
