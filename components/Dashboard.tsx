@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion"; // <-- Imported Variants
 import { 
   Command, Flame, Target, Zap, RotateCcw, 
   Timer, ChevronRight, ChevronDown, Activity, CheckCircle2, AlertCircle 
@@ -25,7 +25,8 @@ interface UserData {
 }
 
 // --- Premium Motion System (Fixed for Vercel TS Strict Mode) ---
-const anim = {
+// We explicitly type this object so TS knows exact tuples and string literals are expected
+const anim: { container: Variants; item: Variants } = {
   container: {
     hidden: { opacity: 0 },
     show: { 
@@ -39,7 +40,7 @@ const anim = {
       opacity: 1, 
       y: 0, 
       filter: "blur(0px)", 
-      transition: { duration: 0.4, ease:[0.25, 1, 0.5, 1] } 
+      transition: { duration: 0.4, ease: [0.25, 1, 0.5, 1] } 
     }
   }
 };
@@ -68,6 +69,7 @@ export function Dashboard() {
   useEffect(() => {
     const stored = localStorage.getItem("nexus_user_data");
     if (stored) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setUserData(JSON.parse(stored));
     } else {
       const initialData: UserData = {
