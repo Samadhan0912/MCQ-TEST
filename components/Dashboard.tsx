@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { 
   Command, Flame, Target, Zap, RotateCcw, 
   Timer, ChevronRight, ChevronDown, Activity, CheckCircle2, AlertCircle 
@@ -24,8 +24,8 @@ interface UserData {
   sessions: Session[];
 }
 
-// --- Premium Motion System ---
-const anim = {
+// --- Premium Motion System (Strictly Typed for Build Success) ---
+const anim: { container: Variants; item: Variants } = {
   container: {
     hidden: { opacity: 0 },
     show: { 
@@ -56,7 +56,7 @@ const AmbientBackground = () => (
 export function Dashboard() {
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
-  const[isActivityOpen, setIsActivityOpen] = useState(false);
+  const [isActivityOpen, setIsActivityOpen] = useState(false);
   const [userData, setUserData] = useState<UserData>({
     totalQuestions: 0,
     correctAnswers: 0,
@@ -196,7 +196,7 @@ export function Dashboard() {
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: `${stats.accuracy}%` }}
-                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 1.2, ease:[0.16, 1, 0.3, 1] }}
                     className="h-full bg-gradient-to-r from-indigo-600 to-indigo-400 rounded-full relative" 
                   >
                     <div className="absolute top-0 right-0 bottom-0 w-10 bg-gradient-to-r from-transparent to-white/30" />
@@ -244,7 +244,7 @@ export function Dashboard() {
                 <RotateCcw size={20} strokeWidth={1.5} />
               </div>
               <div className="z-10">
-                <h4 className="text-sm font-semibold text-slate-200 mb-1 group-hover:text-white transition-colors">Practice Mistakes</h4>
+                <h4 className="text-sm font-semibold text-slate-200 mb-1 tracking-tight group-hover:text-white transition-colors">Practice Mistakes</h4>
                 <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Targeted Review</p>
               </div>
             </button>
@@ -258,7 +258,7 @@ export function Dashboard() {
                 <Timer size={20} strokeWidth={1.5} />
               </div>
               <div className="z-10">
-                <h4 className="text-sm font-semibold text-slate-200 mb-1 group-hover:text-white transition-colors">Quick Sprint</h4>
+                <h4 className="text-sm font-semibold text-slate-200 mb-1 tracking-tight group-hover:text-white transition-colors">Quick Sprint</h4>
                 <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">5 Min Evaluation</p>
               </div>
             </button>
