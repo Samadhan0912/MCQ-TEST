@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate, Variants } from "framer-motion";
 import { 
   ArrowRight, 
   RotateCcw, 
@@ -24,7 +24,8 @@ interface PerformanceMetrics {
 }
 
 // --- Motion Configurations ---
-const staggerContainer = {
+// ADDED: Explicitly typed as Variants
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -32,12 +33,13 @@ const staggerContainer = {
   }
 };
 
-const fadeUp = {
+// ADDED: Explicitly typed as Variants
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 12 },
   show: { 
     opacity: 1, 
     y: 0, 
-    transition: { duration: 0.4, ease:[0.25, 1, 0.5, 1] } 
+    transition: { duration: 0.4, ease: [0.25, 1, 0.5, 1] } 
   }
 };
 

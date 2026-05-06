@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { mcqData } from "@/lib/mcqData";
 
 // --- Icons ---
@@ -153,11 +153,12 @@ export function QuizScreen() {
               }
 
               // Dynamic Animation Variants based on state
-              const variants = {
+              // ADDED Variants type and "as const" to strictly type the animation object
+              const variants: Variants = {
                 idle: { scale: 1, x: 0, opacity: 1 },
                 hover: { x: 4, opacity: 1, transition: { duration: 0.2 } },
                 tap: { scale: 0.99 },
-                correct: { scale: 1.02, x: 0, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 20 } },
+                correct: { scale: 1.02, x: 0, opacity: 1, transition: { type: "spring" as const, stiffness: 300, damping: 20 } },
                 wrong: { x: [0, -6, 6, -6, 6, 0], scale: 1, opacity: 1, transition: { duration: 0.4 } },
                 disabled: { scale: 0.98, x: 0, opacity: 0.4 }
               };
